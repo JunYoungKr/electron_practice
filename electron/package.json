@@ -2,19 +2,22 @@
   "name": "electron",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "main": "public/electron.js",
+  "homepage": ".",
   "dependencies": {
     "cra-template-typescript": "1.2.0",
-    "electron": "^34.1.1",
     "electron-is-dev": "^3.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "start": "concurrently \"cross-env NODE_ENV=development BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "yarn react-build && electron-builder",
+    "build:win": "yarn react-build && electron-builder --win --x64"
   },
   "eslintConfig": {
     "extends": [
@@ -35,7 +38,11 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^34.1.1",
     "electron-builder": "^25.1.8",
     "wait-on": "^8.0.2"
   }
